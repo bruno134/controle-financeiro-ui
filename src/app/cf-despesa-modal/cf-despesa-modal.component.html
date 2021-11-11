@@ -2,54 +2,73 @@
     <div class="modal-header">
         <h4 class="modal-title pull-left"> {{title}}</h4>
         <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef?.hide()">
-          <span aria-hidden="true" class="visually-hidden">&times;</span>
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
         </button>
-      </div>
-      <div class="modal-body">
-           <div class="container">
-               <div class="row">
-                   <div class="col-md-12">
-                        <label class="form-label"> Descrição </label>
-                        <input type="text" class="form-control" />
-                   </div>
-               </div>
-               <div class="row">
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="form-label"> Descrição </label>
+                    <input type="text" class="form-control" [(ngModel)]="descricaoDespesa">
+                </div>
+            </div>
+             <div class="row">
                 <div class="col-md-6">
                     <label class="form-label"> Valor </label>
-                    <input type="text" class="form-control" />
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="text" class="form-control" [(ngModel)]="valorDespesa" [inputMask]="currencyInputMask" placeholder="$ 0.00"/>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label"> Data</label>
-                 <input type="text"
-                      class="form-control"
-                      bsDatepicker>
-      
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-calendar" viewBox="0 0 16 16">
+                                <path
+                                    d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                            </svg>
+                        </span>
+                        <input type="text" class="form-control" bsDatepicker
+                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', showTodayButton: true, todayPosition: 'center' }"
+                        [(ngModel)]="dataDespesa">
+                    </div>
                 </div>
-               </div>
-               <div class="row">
-                   <div class="col-md-4">
-                        <label class="form-label"> Categoria </label>   
-                        <select class="form-select" >
-                             <option selected> Selecione </option>
-                        </select>
-                   </div>
-                   <div class="col-md-4">
-                        <label class="form-label"> Origem Despesa </label>
-                        <select class="form-select" >
-                            <option selected> Selecione </option>
-                       </select>
-                   </div>
-                   <div class="col-md-4">
-                        <label class="form-label"> Rateio </label>
-                        <select class="form-select" >
-                            <option selected> Selecione </option>
-                       </select>
-                   </div>
-               </div>
-           </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" (click)="bsModalRef?.hide()">Salvar</button>  
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="form-label"> Categoria Despesa</label>
+                    <select class="form-select" [(ngModel)]="categoriaDespesa">
+                        <option selected> Selecione </option>
+                        <option *ngFor="let itemCategoria of listaDeCategoria">{{ itemCategoria.nome }}</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label"> Origem Despesa </label>
+                    <select class="form-select" [(ngModel)]="origemDespesa">
+                        <option selected> Selecione </option>
+                        <option *ngFor="let itemOrigem of listaDeOrigens" > {{ itemOrigem.nome }} </option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label"> Rateio </label>
+                    <select class="form-select" [(ngModel)]="tipoRateioDespesa">
+                        <option *ngFor="let itemRateio of listaDeRateios"> {{ itemRateio.nome }} </option>
+                    </select>
+                </div> 
+            </div> 
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="inserirNovaDespesa()">Salvar</button>
         <button type="button" class="btn btn-danger" (click)="bsModalRef?.hide()">Close</button>
-      </div>
+    </div>
 </ng-template>
+<script>
+    $(document).ready(function(){
+  $(":input").inputmask();
+});
+
+</script>
