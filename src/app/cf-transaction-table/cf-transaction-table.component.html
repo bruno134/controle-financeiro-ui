@@ -28,7 +28,7 @@
             </tbody>
         </table>
     </div>
-    <div class="row">
+    <!-- <div class="row">
         <div class="col"></div>
         <div class="col-2 text-end">
             <button type="button" 
@@ -61,5 +61,14 @@
                 <span class="visually-hidden"></span>
             </button></div>
         <div class="col"></div>
+    </div> -->
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <pagination [totalItems]="30" 
+                        [itemsPerPage]="10" 
+                        [(ngModel)]="currentPage" 
+                        (pageChanged)="buscaListaDespesa($event.page)" class="my-pagination"></pagination>
+            <!-- {{currentPage}} -->
+        </div>
     </div>
 </div>

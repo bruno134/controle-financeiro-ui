@@ -16,6 +16,9 @@ paginaAnterior:number = 0;
 proximaPagina:number = 0;
 paginaAtual:number = 0;
 totalDePaginas:number = 0;
+smallnumPages:number = 0;
+currentPage:number = 0;
+
 
   constructor(private despesaService:DespesasService) { }
 
