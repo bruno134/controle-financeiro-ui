@@ -127,7 +127,7 @@ export class CfDespesaModalComponent implements OnInit {
   setMessagesOfErrors(errors:Error[]){
 
       var errorMessages:string[] = [];
-      errors.forEach(erro => errorMessages.push(erro.message + "[ " + erro.attemptedValue + " ]"));
+      errors.forEach(erro => errorMessages.push(`${erro.message}[ ${erro.attemptedValue} ]`));
     
       return errorMessages;
   }
