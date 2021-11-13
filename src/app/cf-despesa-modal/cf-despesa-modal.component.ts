@@ -9,6 +9,7 @@ import { OrigemService } from '../services/origem/origem.service';
 import { RateioDespesaService } from '../services/rateio/rateio-despesa.service'
 import { RateioDespesa } from '../services/rateio/RateioDespesa';
 import { createMask } from '@ngneat/input-mask';
+import { Error } from 'src/app/error'
 
 @Component({
   selector: 'cf-despesa-modal',
@@ -23,6 +24,8 @@ export class CfDespesaModalComponent implements OnInit {
   listaDeCategoria: Categoria[] = [];
   listaDeOrigens: Origem[] = [];
   listaDeRateios: RateioDespesa[] = [];
+  messagesModal:string[] = [];
+  alertType:string = "info";
 
   /* variaveis formulario */
   dataDespesa?: Date;
@@ -36,10 +39,8 @@ export class CfDespesaModalComponent implements OnInit {
 
    currencyInputMask = createMask({
     alias: 'numeric',
-    groupSeparator: ',',
     digits: 2,
     digitsOptional: false,
-    prefix: '$ ',
     placeholder: '0',
   });
 
@@ -103,8 +104,32 @@ export class CfDespesaModalComponent implements OnInit {
      this.despesaService.incluir(novaDespesa).subscribe(retorno => {
        console.log(retorno)
        this.bsModalRef?.hide();
+       
       },
-      erro => console.log(erro));
+      erro => {
+        this.alertType = this.defineAlertStyleBy(erro.status);
+        this.messagesModal = this.setMessagesOfErrors(erro.error.errors);
+      });
+  }
+
+  defineAlertStyleBy(httpCode:number){
+      if(httpCode>=500)
+        return "danger"
+      else if (httpCode>=400)
+        return "warning"
+      else if (httpCode>=300)  
+        return "info"
+      else if (httpCode>=200)
+        return "success"
+      else return "info";
+  }
+
+  setMessagesOfErrors(errors:Error[]){
+
+      var errorMessages:string[] = [];
+      errors.forEach(erro => errorMessages.push(erro.message + "[ " + erro.attemptedValue + " ]"));
+    
+      return errorMessages;
   }
 
 }

@@ -15,13 +15,16 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { InputMaskModule } from '@ngneat/input-mask';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { CfAlertaComponent } from './cf-despesa-modal/cf-alerta/cf-alerta.component';
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 @NgModule({
   declarations: [
     AppComponent,
     CfHeaderComponent,
     CfTransactionTableComponent,
-    CfDespesaModalComponent
+    CfDespesaModalComponent,
+    CfAlertaComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     BsDatepickerModule.forRoot(),
     FormsModule,
     PaginationModule.forRoot(),
-    InputMaskModule.forRoot({ inputSelector: 'input', isAsync: true })
+    InputMaskModule.forRoot({ inputSelector: 'input', isAsync: true }),
+    AlertModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

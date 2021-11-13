@@ -8,6 +8,9 @@
     <div class="modal-body">
         <div class="container">
             <div class="row">
+                <cf-alerta-modal [message]="messagesModal" [inputType]="alertType"></cf-alerta-modal>
+            </div>
+            <div class="row">
                 <div class="col-md-12">
                     <label class="form-label"> Descrição </label>
                     <input type="text" class="form-control" [(ngModel)]="descricaoDespesa">
