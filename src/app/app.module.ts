@@ -19,6 +19,9 @@ import { CfAlertaComponent } from './cf-despesa-modal/cf-alerta/cf-alerta.compon
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CfImportarModalComponent } from './cf-importar-modal/cf-importar-modal.component';
+import { GraficoCategoriaComponent } from './grafico-categoria/grafico-categoria.component';
+import { GraficoTransacaoAnoComponent } from './grafico-transacao-ano/grafico-transacao-ano.component';
+import { CfStatusRateioComponent } from './cf-status-rateio/cf-status-rateio.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { CfImportarModalComponent } from './cf-importar-modal/cf-importar-modal.
     CfTransactionTableComponent,
     CfDespesaModalComponent,
     CfAlertaComponent,
-    CfImportarModalComponent
+    CfImportarModalComponent,
+    GraficoCategoriaComponent,
+    GraficoTransacaoAnoComponent,
+    CfStatusRateioComponent
   ],
   imports: [
     BrowserModule,

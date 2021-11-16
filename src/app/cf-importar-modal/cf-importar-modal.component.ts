@@ -58,7 +58,6 @@ export class CfImportarModalComponent implements OnInit {
     this.buscarListaCategoria();
     this.buscarListaRateio();
     this.buscaListaOrigem();
-    this.origemImportacao = this.listaOrigem[0].nome;
   }
   
   openModalWithComponent() {

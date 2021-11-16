@@ -44,4 +44,14 @@ currentPage:number = 0;
       });
     }
   }
+
+  apagarDespesa(id:number){
+    alert("posso apagar?")
+    this.despesaService.apagaDespesa(id).subscribe(
+      () => {
+        this.buscaListaDespesa(this.paginaAtual)
+      },
+      erro => console.error(erro)
+    )
+  }
 }
