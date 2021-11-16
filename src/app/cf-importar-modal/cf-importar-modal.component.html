@@ -1,0 +1,92 @@
+<ng-template #importModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left"> {{title}}</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="row">
+                        <cf-alerta-modal [message]="messagesModal" [inputType]="alertType"></cf-alerta-modal>
+                    </div>
+                    <div class="form-floating">
+                        <select id="origemSelect" [(ngModel)]="origemImportacao" class="form-select" aria-label="Floating label select example">
+                            <option selected> Selecione origem </option>
+                            <option *ngFor="let origem of listaOrigem;">
+                                {{ origem.nome }}
+                            </option>
+                        </select>
+                        <label class="form-label" for="origemSelect">Origem Despesas</label>
+                    </div>
+                </div>
+            </div>
+            <!-- Quebra linha -->
+             <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input type="file" 
+                            class="form-control" 
+                            id="inputGroupFile04" 
+                            aria-describedby="inputGroupFileAddon04" 
+                            aria-label="Upload"
+                            (change)="loadFile($event)">
+                        <button class="btn btn-warning" type="button" id="inputGroupFileAddon04" (click)="importFile()">Upload</button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <ng-template [ngIf]="listaDespesaImportar.length" [formGroup]="importForm">
+            <div class="container" style="height: 80vh; overflow-y: auto;">
+                <div class="row">
+                    <table id="import" class="table table-striped" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th *ngFor="let header of headers"> {{ header }}</th>
+                            </tr>
+                        </thead>
+                        <tbody formArrayName="despesaArray">
+                            <ng-container *ngFor="let despesa of despesaArray.controls; let i = index">
+                                <tr [formGroupName]="i">
+                                    <th scope="row">
+                                        <input type="checkbox" formControlName="selecionado">
+                                    </th>
+                                    <td>{{ despesa.get('data')?.value }}</td>
+                                    <td>{{ despesa.get('descricao')?.value }}</td>
+                                    <td>{{ despesa.get('valor')?.value | currency:'BRL':'symbol':'1.2-2'}}</td>
+                                    <td>
+                                        <select class="form-select" formControlName="categoria">
+                                            <option select>Não categorizado</option>
+                                            <option [ngValue]="categoria.nome"
+                                                *ngFor="let categoria of listaCategorias">
+                                                {{ categoria.nome }}
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-select" formControlName="tipoRateio">
+                                            <option [ngValue]="rateio.nome" *ngFor="let rateio of listaRateio">
+                                                {{ rateio.nome }}
+                                            </option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                  <!-- <pre>{{importForm.value | json}}</pre>   -->
+                </div>
+            </div>
+        </ng-template>
+    </div>
+    <div class="modal-footer">
+        <!-- <button class="btn btn-warning" (click)="importFile()">Upload</button> -->
+        <button type="button" class="btn btn-success" *ngIf="listaDespesaImportar.length"
+            (click)="salvar()">Salvar</button>
+        <button type="button" class="btn btn-danger" (click)="closeModal()"> Close</button>
+    </div>
+</ng-template>

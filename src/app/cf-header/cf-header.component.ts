@@ -11,7 +11,7 @@ export class CfHeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  chamaModal(){
-    this.myEvent.emit(true);
+  chamaModal(nome:string){
+    this.myEvent.emit(nome);
   }
 }

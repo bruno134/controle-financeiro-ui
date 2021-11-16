@@ -29,4 +29,14 @@ export class DespesasService implements OnInit{
   incluir(despesa:Despesa) {
     return this.http.post<Despesa>('http://localhost:8080/despesa/inserir', despesa);
   }
+
+  importarDespesa(formData:FormData) {
+    return this.http.post< Despesa[]>('http://localhost:8080/despesa/import', formData);
+  }
+
+  incluirLote(lista: Despesa[]) {
+    return this.http.post('http://localhost:8080/despesa/inserir/lista', lista)
+  }
+
+
 }

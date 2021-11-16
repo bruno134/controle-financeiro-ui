@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 import { CfHeaderComponent } from './cf-header/cf-header.component';
@@ -17,6 +17,8 @@ import { InputMaskModule } from '@ngneat/input-mask';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { CfAlertaComponent } from './cf-despesa-modal/cf-alerta/cf-alerta.component';
 import { AlertModule } from 'ngx-bootstrap/alert';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { CfImportarModalComponent } from './cf-importar-modal/cf-importar-modal.component';
 
 @NgModule({
   declarations: [
@@ -24,15 +26,18 @@ import { AlertModule } from 'ngx-bootstrap/alert';
     CfHeaderComponent,
     CfTransactionTableComponent,
     CfDespesaModalComponent,
-    CfAlertaComponent
+    CfAlertaComponent,
+    CfImportarModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
+    BsDropdownModule.forRoot(),
     FormsModule,
     PaginationModule.forRoot(),
     InputMaskModule.forRoot({ inputSelector: 'input', isAsync: true }),

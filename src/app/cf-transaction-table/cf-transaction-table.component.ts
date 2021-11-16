@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DespesasService } from '../services/despesa/despesas.service';
 import { Despesa } from '../services/despesa/despesa';
 
@@ -8,10 +8,10 @@ import { Despesa } from '../services/despesa/despesa';
   styleUrls: ['./cf-transaction-table.component.css']
 })
 export class CfTransactionTableComponent implements OnInit {
+@Input() listaDespesa:Despesa[] = [];
+@Input() headers:string[] =  ["#", "Data", "Descrição", "Valor", "Categoria", "Origem Despesa", "Rateio"];
 
 /* váriaveis */
-headers:string[] =  ["#", "Data", "Descrição", "Valor", "Categoria", "Origem Despesa", "Rateio"];
-listaDespesa:Despesa[] = []
 paginaAnterior:number = 0;
 proximaPagina:number = 0;
 paginaAtual:number = 0;
@@ -27,8 +27,15 @@ currentPage:number = 0;
   }
 
   buscaListaDespesa(pagina: number) {
+    
+    //TODO deixar parametrizavel as buscas
+    
+    let dataAtual = new Date();
+    let mes = dataAtual.getMonth()+1;
+    let ano = dataAtual.getFullYear();
+
     if (pagina || pagina>0) {
-      this.despesaService.consultaListaDespesa(11, 2021, pagina).subscribe(service => {
+      this.despesaService.consultaListaDespesa(mes, ano, pagina).subscribe(service => {
         this.listaDespesa = service.despesas;
         this.proximaPagina = service.proximaPagina;
         this.paginaAnterior = service.paginaAnterior != null ? service.paginaAnterior : 0;
