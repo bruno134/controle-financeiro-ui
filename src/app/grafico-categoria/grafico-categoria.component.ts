@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js/auto';
+import { ConsolidadoPorCategoria } from '../services/controleDespesa/consolidadoPorCategoria';
+import { ControleDespesaService } from '../services/controleDespesa/controle-despesa.service';
 
 @Component({
   selector: 'cf-grafico-categoria',
@@ -10,27 +12,31 @@ export class GraficoCategoriaComponent implements OnInit {
 
 /** variaveis */
 
-chartLabels = ['LAZER', 'SUPERMERCADO', 'SAUDE'];
-chartValues = [3,4,5]
+chartLabels:string[] = [];
+chartValues:number[] = [];
+mes:number;
+ano:number;
 chartData: any;
 myChart: any;
+listaConsolidadoCategoria:ConsolidadoPorCategoria[] = [];
 
-  constructor() { }
+  constructor(private controleService:ControleDespesaService) {
+    let dataAtual = new Date();
+    this.mes = dataAtual.getMonth()+1;
+    this.ano = dataAtual.getFullYear();
+   }
 
   ngOnInit(): void {
-    this.montaChart();
+    this.buscaDepesasConsolidadoCategoria(this.mes,this.ano)
+    this.montaChart(this.chartLabels, this.chartValues);
   }
 
-  montaChart() {
-
-    this.chartLabels = ['LAZER', 'SUPERMERCADO', 'SAUDE','EDUCACAO','VEICULO'];
-    this.chartValues = [3, 5, 8,10,13];
-
+  montaChart(chartLabels:string[],chartValues:number[] ) {
     this.chartData = {
-      labels: this.chartLabels,
+      labels: chartLabels,
       datasets: [{
-        label: 'My First Dataset',
-        data: this.chartValues,
+        label: 'Categorias',
+        data: chartValues,
         backgroundColor: [
           'rgb(255, 99, 132)',
           'rgb(54, 162, 235)',
@@ -65,6 +71,25 @@ myChart: any;
         },
       }
     );
+  }
+
+  buscaDepesasConsolidadoCategoria(mes:number,ano:number){
+      this.controleService.buscaDespesaConsolidadoPorCategoria(mes,ano).subscribe(
+        consolidadoCategoria => { 
+          this.listaConsolidadoCategoria = consolidadoCategoria.itens
+          this.alimentaDadosGrafico(this.listaConsolidadoCategoria);
+        },
+        erro => console.log(erro)
+      );
+  }
+
+  alimentaDadosGrafico(listaConsolidada:ConsolidadoPorCategoria[]){
+    if(listaConsolidada){
+      listaConsolidada.forEach(item => {
+        this.chartLabels.push(item.descricao);
+        this.chartValues.push(+item.soma);
+      })
+    }
   }
 
 }

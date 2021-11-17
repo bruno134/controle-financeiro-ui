@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Categoria } from '../services/categoria/categoria';
 import { CategoriaService } from '../services/categoria/categoria.service';
@@ -7,7 +7,7 @@ import { Despesa } from '../services/despesa/despesa';
 import { Origem } from '../services/origem/origem';
 import { OrigemService } from '../services/origem/origem.service';
 import { RateioDespesaService } from '../services/rateio/rateio-despesa.service'
-import { RateioDespesa } from '../services/rateio/RateioDespesa';
+import { RateioDespesa } from '../services/rateio/despesaRateio';
 import { createMask } from '@ngneat/input-mask';
 import { Error } from 'src/app/error'
 
@@ -17,9 +17,10 @@ import { Error } from 'src/app/error'
   styleUrls: ['./cf-despesa-modal.component.css']
 })
 export class CfDespesaModalComponent implements OnInit {
+  @Output() saveEvent = new EventEmitter();
+  @ViewChild('template', { static: true }) meuModal!: TemplateRef<any>;
 
   bsModalRef?: BsModalRef;
-  @ViewChild('template', { static: true }) meuModal!: TemplateRef<any>;
   title:string = "";
   listaDeCategoria: Categoria[] = [];
   listaDeOrigens: Origem[] = [];
@@ -104,6 +105,7 @@ export class CfDespesaModalComponent implements OnInit {
      this.despesaService.incluir(novaDespesa).subscribe(retorno => {
        console.log(retorno)
        this.bsModalRef?.hide();
+       this.saveEvent.emit(true);
        
       },
       erro => {

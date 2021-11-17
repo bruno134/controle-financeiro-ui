@@ -8,7 +8,7 @@ import { DespesasService } from '../services/despesa/despesas.service';
 import { Origem } from '../services/origem/origem';
 import { OrigemService } from '../services/origem/origem.service';
 import { RateioDespesaService } from '../services/rateio/rateio-despesa.service';
-import { RateioDespesa } from '../services/rateio/RateioDespesa';
+import { RateioDespesa } from '../services/rateio/despesaRateio';
 
 @Component({
   selector: 'cf-importar-modal',
