@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { DespesaPorMes } from 'src/app/grafico-transacao-ano/despesaPorMes';
 import { ListaConsolidadoPorCategoria } from './listaConsolidadoPorCategoria';
 
 @Injectable({
@@ -16,4 +17,12 @@ export class ControleDespesaService {
         ano: ano
       }});
     }
+
+  buscaDespesaConsolidadaPorMes(ano:number){
+    return this.http.get<DespesaPorMes[]>('http://localhost:8080/dash/totalconsolidadodespesa',{
+      params: {
+        ano:ano
+      }
+    });
+  }
 }

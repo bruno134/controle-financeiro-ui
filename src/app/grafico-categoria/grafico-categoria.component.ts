@@ -27,8 +27,7 @@ listaConsolidadoCategoria:ConsolidadoPorCategoria[] = [];
    }
 
   ngOnInit(): void {
-    this.buscaDepesasConsolidadoCategoria(this.mes,this.ano)
-    this.montaChart(this.chartLabels, this.chartValues);
+    this.buscaDepesasConsolidadoCategoria(this.mes,this.ano);
   }
 
   montaChart(chartLabels:string[],chartValues:number[] ) {
@@ -77,13 +76,14 @@ listaConsolidadoCategoria:ConsolidadoPorCategoria[] = [];
       this.controleService.buscaDespesaConsolidadoPorCategoria(mes,ano).subscribe(
         consolidadoCategoria => { 
           this.listaConsolidadoCategoria = consolidadoCategoria.itens
-          this.alimentaDadosGrafico(this.listaConsolidadoCategoria);
+          this.separaDadosGrafico(this.listaConsolidadoCategoria);
+          this.montaChart(this.chartLabels, this.chartValues);
         },
         erro => console.log(erro)
       );
   }
 
-  alimentaDadosGrafico(listaConsolidada:ConsolidadoPorCategoria[]){
+  separaDadosGrafico(listaConsolidada:ConsolidadoPorCategoria[]){
     if(listaConsolidada){
       listaConsolidada.forEach(item => {
         this.chartLabels.push(item.descricao);

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js/auto';
+import { ControleDespesaService } from '../services/controleDespesa/controle-despesa.service';
+import { DespesaPorMes } from './despesaPorMes';
 
 @Component({
   selector: 'cf-grafico-transacao-ano',
@@ -9,30 +11,50 @@ import Chart from 'chart.js/auto';
 export class GraficoTransacaoAnoComponent implements OnInit {
 
   
-  chartValues = [3,4,5]
+  chartLabels:string[] = [];
+  chartValues:string[] = [];
   chartData: any;
   barChart: any;
   labelsChart: any;
+  ano:number;
 
 
-  constructor() { }
+  constructor(private controleDespesaService:ControleDespesaService) {
+    this.ano = new Date().getFullYear();
+   }
 
   ngOnInit(): void {
-    this.montaChart();
+    this.buscaDespesaPorMes(this.ano);
   }
 
-  montaChart() {
 
-    
-   
+  buscaDespesaPorMes(ano:number){
+    this.controleDespesaService.buscaDespesaConsolidadaPorMes(ano).subscribe(
+      despesasMes => {
+        this.separaDadosGrafico(despesasMes)
+        this.montaChart(this.chartLabels,this.chartValues);
+      },
+      erro => {
+        console.log(erro);
+      }
+    );
+  }
 
-    this.labelsChart = ["Janeiro","Fevereiro","Março", "Abril", "Maio"];
-    this.chartValues = [10800, 0, 8049, 12381, 5600, 14455, 10040];
+  separaDadosGrafico(despesasMes:DespesaPorMes[]){
+    if(despesasMes){
+      despesasMes.forEach(despesa => {
+        this.chartLabels.push(despesa.mesDespesa)
+        this.chartValues.push(despesa.valorTotalMes)
+      } );
+    }
+  }
+
+  montaChart(chartLabels:string[],chartValues:string[] ) {   
     this.chartData = {
-      labels: this.labelsChart,
+      labels: chartLabels,
       datasets: [{
         label: '2021',
-        data: this.chartValues,
+        data: chartValues,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(255, 159, 64, 0.2)',
