@@ -38,12 +38,17 @@
     <div class="row" id="row-transaction-table">
         <div class="col-lg-12">
             <div class="card">
-                <cf-transaction-table></cf-transaction-table>
+                <cf-transaction-table (deleteEvent)="atualizaDados()"></cf-transaction-table>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            &nbsp;
         </div>
     </div>
 </div>
 
 
 <cf-despesa-modal #despesaModal (saveEvent)="atualizaDados()"></cf-despesa-modal>
-<cf-importar-modal #importaDespesaModal></cf-importar-modal>
+<cf-importar-modal #importaDespesaModal (importEvent)="atualizaDados()"></cf-importar-modal>

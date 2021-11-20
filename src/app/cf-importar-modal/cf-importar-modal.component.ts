@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Categoria } from '../services/categoria/categoria';
@@ -9,6 +9,8 @@ import { Origem } from '../services/origem/origem';
 import { OrigemService } from '../services/origem/origem.service';
 import { RateioDespesaService } from '../services/rateio/rateio-despesa.service';
 import { RateioDespesa } from '../services/rateio/despesaRateio';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'cf-importar-modal',
@@ -18,6 +20,7 @@ import { RateioDespesa } from '../services/rateio/despesaRateio';
 export class CfImportarModalComponent implements OnInit {
   
   @ViewChild('importModal', { static: true }) meuModal!: TemplateRef<any>;
+  @Output() importEvent = new EventEmitter();
 
   fileForm: FormGroup;
   importForm: FormGroup;
@@ -64,10 +67,7 @@ export class CfImportarModalComponent implements OnInit {
     this.bsModalRef = this.modalService.show(this.meuModal,{class: 'modal-xl'});
   }
 
-  closeModal(){
-    this.despesaArray.clear();
-    this.bsModalRef?.hide()
-  }
+  
 
   loadFile(event: any) {
     const elemento = event.target
@@ -112,10 +112,10 @@ export class CfImportarModalComponent implements OnInit {
       let listaDespesas:Despesa[] = this.retornaDespesaParaImportar(this.despesaArray.controls);
       console.log(listaDespesas);
       this.despesaService.incluirLote(listaDespesas).subscribe(()=>{
-        alert("importacao realizada com sucesso")
-        this.bsModalRef?.hide();
-      }, erro => alert("houve erro na importação"))
-    } else { alert("não informaram despesas para importação")}
+        this.importEvent.emit(true);
+        this.closeModal()
+      }, erro => this.showErrorAlert("Houve um erro inesperado na importação") )
+    } else { this.showErrorAlert("não informaram despesas para importação")}
   }
 
   criaDespesaRow(despesa:Despesa){
@@ -183,5 +183,40 @@ export class CfImportarModalComponent implements OnInit {
       return listaRetorno;
   }
 
+  resetControles(){
+    this.despesaArray.clear();
+    this.listaDespesaImportar = [];
+  }
+
+  closeModal(){
+   this.resetControles();
+    this.bsModalRef?.hide()
+  }
+
+  openConfirmAlert(){
+    Swal.fire({
+      icon: 'question',
+      title: 'Confirma a importação das despesas selecionadas?',
+      showDenyButton: true,
+      confirmButtonText: 'Salvar',
+      denyButtonText: `Não salve`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+       this.salvar()
+      } else if (result.isDenied) {
+        Swal.fire('Nenhuma importação foi realizada', '', 'info')
+      }
+    })
+  }
+
+  showErrorAlert(message:string){
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Algo deu ruim!',
+      footer: message
+    })
+  }
 
 }

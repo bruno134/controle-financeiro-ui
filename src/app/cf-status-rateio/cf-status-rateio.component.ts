@@ -14,6 +14,9 @@ export class CfStatusRateioComponent implements OnInit {
   listaDepesaPessoa:DespesaPessoa[] = [];
   valorCompartilhado:string = "0";
   descricaoValorCompartilhado = "COMPARTILHADA";
+  valorPercentual:number = 0;
+  corDaBarra:string = "";
+  barra:string = "";
 
   constructor(private rateioService:RateioDespesaService) { 
     let dataAtual = new Date();
@@ -24,6 +27,9 @@ export class CfStatusRateioComponent implements OnInit {
 
   ngOnInit(): void {
     this.buscarRateioPessoa(this.mes,this.ano);
+    // this.valorPercentual = this.calculoBarra(100,6000);
+    // this.barra = this.valorPercentual + "%";
+    // this.corDaBarra = this.corBarra(this.valorPercentual);
   }
 
   buscarRateioPessoa(mes:number,ano:number){
@@ -39,5 +45,29 @@ export class CfStatusRateioComponent implements OnInit {
       );
   }
 
+
+  /*
+  100  - offset     100*vl  = x * offset  => x 100*vl/offset
+   x  - vl
+  */ 
+
+  calculoBarra(valorAtual:number,valorOffSet:number){
+    return (valorAtual*100/valorOffSet);
+  }
+
+  calculoBarraString(valorAtual:number,valorOffSet:number){
+      return this.calculoBarra(valorAtual,valorOffSet)+"%"
+  }
+
+  corBarra(percentual:number){
+
+    if(percentual>67)
+      return "red";
+    if(percentual>34)
+      return "yellow";
+    else  
+      return "green";
+
+  }
 
 }

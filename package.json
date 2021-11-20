@@ -28,6 +28,7 @@
     "inputmask": "5.0.5",
     "ngx-bootstrap": "^7.1.0",
     "rxjs": "~6.6.0",
+    "sweetalert2": "^11.1.10",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

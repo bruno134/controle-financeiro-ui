@@ -16,8 +16,8 @@
                     <td>{{ despesa.instrumento }}</td>
                     <td>{{ despesa.tipoRateio }} </td>
                     <td>
-                        <span>
-                            <a href="" (click)="apagarDespesa(despesa.id)">
+                        <span #lixeira (click)="mostrarAlertaDelecao(despesa.id)">
+                            <a href="#lixeira" >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-trash-fill" viewBox="0 0 16 16">
                                     <path
@@ -25,6 +25,7 @@
                                 </svg>
                             </a>
                         </span>
+                        <!-- <button (click)="mostrarAlertaDelecao(despesa.id)">apg</button> -->
                     </td>
                 </tr>
             </tbody>
@@ -61,12 +62,4 @@
         </div>
         <div class="col"></div>
     </div>
-    <!-- <div class="row">
-        <div class="col-12 d-flex justify-content-center">
-            <pagination [totalItems]="300" 
-                        [itemsPerPage]="50" 
-                        [(ngModel)]="currentPage" 
-                        (pageChanged)="buscaListaDespesa($event.page)" class="my-pagination"></pagination>
-        </div>
-    </div> -->
 </div>

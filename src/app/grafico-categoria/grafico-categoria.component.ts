@@ -27,15 +27,16 @@ listaConsolidadoCategoria:ConsolidadoPorCategoria[] = [];
    }
 
   ngOnInit(): void {
+    this.montaChart();
     this.buscaDepesasConsolidadoCategoria(this.mes,this.ano);
   }
 
-  montaChart(chartLabels:string[],chartValues:number[] ) {
+  montaChart() {
     this.chartData = {
-      labels: chartLabels,
+      labels: [],
       datasets: [{
         label: 'Categorias',
-        data: chartValues,
+        data: [],
         backgroundColor: [
           'rgb(255, 99, 132)',
           'rgb(54, 162, 235)',
@@ -77,7 +78,7 @@ listaConsolidadoCategoria:ConsolidadoPorCategoria[] = [];
         consolidadoCategoria => { 
           this.listaConsolidadoCategoria = consolidadoCategoria.itens
           this.separaDadosGrafico(this.listaConsolidadoCategoria);
-          this.montaChart(this.chartLabels, this.chartValues);
+          this.insereDadosGrafico(this.chartLabels, this.chartValues);
         },
         erro => console.log(erro)
       );
@@ -85,11 +86,19 @@ listaConsolidadoCategoria:ConsolidadoPorCategoria[] = [];
 
   separaDadosGrafico(listaConsolidada:ConsolidadoPorCategoria[]){
     if(listaConsolidada){
+      this.chartLabels = [];
+      this.chartValues = [];
       listaConsolidada.forEach(item => {
         this.chartLabels.push(item.descricao);
         this.chartValues.push(+item.soma);
       })
     }
+  }
+
+  insereDadosGrafico(chartLabels:string[],chartValues:number[] ){
+    this.myChart.data.labels = chartLabels;
+    this.myChart.data.datasets[0].data = chartValues;
+    this.myChart.update();
   }
 
 }

@@ -54,6 +54,8 @@ export class CfDespesaModalComponent implements OnInit {
               private despesaService: DespesasService) {
 
               this.dataDespesa = new Date();
+
+
                }
 
   ngOnInit(): void {
@@ -61,7 +63,6 @@ export class CfDespesaModalComponent implements OnInit {
     this.carregaComboCategoria();
     this.carregaComboOrigem();
     this.carregaComboRateio();
-    
   }
 
   openModalWithComponent() {
@@ -103,10 +104,8 @@ export class CfDespesaModalComponent implements OnInit {
     console.log(novaDespesa);
 
      this.despesaService.incluir(novaDespesa).subscribe(retorno => {
-       console.log(retorno)
-       this.bsModalRef?.hide();
+       this.fecharModal()
        this.saveEvent.emit(true);
-       
       },
       erro => {
         this.alertType = this.defineAlertStyleBy(erro.status);
@@ -132,6 +131,21 @@ export class CfDespesaModalComponent implements OnInit {
       errors.forEach(erro => errorMessages.push(`${erro.message}[ ${erro.attemptedValue} ]`));
     
       return errorMessages;
+  }
+
+  resetControlesModal(){
+    
+    this.dataDespesa = new Date();
+    this.valorDespesa = ""
+    this.descricaoDespesa = ""
+    this.categoriaDespesa = ""
+    this.tipoRateioDespesa = "COMPARTILHADA"
+    this.origemDespesa = "";
+  }
+
+  fecharModal(){
+    this.resetControlesModal();
+    this.bsModalRef?.hide();
   }
 
 }

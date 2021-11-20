@@ -1,26 +1,50 @@
 <div class="row">
     <div class="col-md-6" *ngFor="let despesaPessoa of listaDepesaPessoa">
-        <div class="card p-3 mb-2">
+        <div class="card p-3">
             <div class="d-flex justify-content-between">
                 <div class="d-flex flex-row align-items-center">
                     <div class="icon"> <i class="bx bxl-mailchimp"></i> </div>
                     <div class="ms-2 c-details">
-                        <h6 class="mb-0"> {{ despesaPessoa.nomeDono }} </h6>
+                        <h4 class="mb-0"> {{ despesaPessoa.nomeDono }} </h4>
                     </div>
                 </div>
                 <div class="badge"> <span>{{ despesaPessoa.valorTaxa}}</span> </div>
             </div>
-            <div class="mt-5">
-                <h2 class="heading"> {{ despesaPessoa.valorTotal | currency:'BRL':'symbol':'1.2-2'}}</h2>
-                
-                <div class="mt-5">
-                    <div>{{ despesaPessoa.valorTotal | currency:'BRL':'symbol':'1.2-2'}}</div>
-                <div>{{ despesaPessoa.valorTotal | currency:'BRL':'symbol':'1.2-2'}}</div>
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: 30.56%" aria-valuenow="50"
-                            aria-valuemin="0" aria-valuemax="100"></div>
+            <div >
+                <div class="dates">
+                    <div>
+                        <strong>TOTAL</strong>
+                        {{ despesaPessoa.valorTotal | currency:'BRL':'symbol':'1.2-2'}}
+                        <span></span>
                     </div>
-                    <div class="mt-3"> <span class="text1">{{ despesaPessoa.valorTotal | currency:'BRL':'symbol':'1.2-2'}} <span class="text2">de R$ 6.000,00</span></span>
+                    <div>
+                        <strong>PARTICULAR</strong>
+                        {{ despesaPessoa.valorTotalIndividual | currency:'BRL':'symbol':'1.2-2'}}
+                        <span></span>
+                    </div>
+                    <div>
+                        <strong>COMPARTILHADO</strong>
+                        {{ valorCompartilhado | currency:'BRL':'symbol':'1.2-2'}}
+                    </div>
+                </div>
+                
+                <div class="mt-3">
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" 
+                        [style.width]="calculoBarraString(despesaPessoa.valorTotal,6000)" 
+                        [style.background-color]="corBarra(calculoBarra(despesaPessoa.valorTotal,6000))" aria-valuenow="50"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>                    
+                    <div class="d-flex justify-content-between mt-3">
+                        <div class="text1">{{ despesaPessoa.valorTotal | currency:'BRL':'symbol':'1.2-2'}} de R$ 6.000,00</div>
+                        <div>
+                          <a href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+                                    <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+                                    <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+                                </svg>
+                           </a>
+                        </div>
                     </div>
                 </div>
             </div>

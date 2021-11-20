@@ -24,6 +24,7 @@ export class GraficoTransacaoAnoComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.montaChart();
     this.buscaDespesaPorMes(this.ano);
   }
 
@@ -32,7 +33,8 @@ export class GraficoTransacaoAnoComponent implements OnInit {
     this.controleDespesaService.buscaDespesaConsolidadaPorMes(ano).subscribe(
       despesasMes => {
         this.separaDadosGrafico(despesasMes)
-        this.montaChart(this.chartLabels,this.chartValues);
+        //this.montaChart(this.chartLabels,this.chartValues);
+        this.insereDadosGrafico(this.chartLabels,this.chartValues)
       },
       erro => {
         console.log(erro);
@@ -42,6 +44,8 @@ export class GraficoTransacaoAnoComponent implements OnInit {
 
   separaDadosGrafico(despesasMes:DespesaPorMes[]){
     if(despesasMes){
+      this.chartLabels = [];
+      this.chartValues = [];
       despesasMes.forEach(despesa => {
         this.chartLabels.push(despesa.mesDespesa)
         this.chartValues.push(despesa.valorTotalMes)
@@ -49,12 +53,12 @@ export class GraficoTransacaoAnoComponent implements OnInit {
     }
   }
 
-  montaChart(chartLabels:string[],chartValues:string[] ) {   
+  montaChart( ) {   
     this.chartData = {
-      labels: chartLabels,
+      labels: [],
       datasets: [{
         label: '2021',
-        data: chartValues,
+        data: [],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(255, 159, 64, 0.2)',
@@ -107,6 +111,12 @@ export class GraficoTransacaoAnoComponent implements OnInit {
         },
       }
     );
+  }
+
+  insereDadosGrafico(chartLabels:string[],chartValues:string[] ){
+    this.barChart.data.labels = chartLabels;
+    this.barChart.data.datasets[0].data = chartValues;
+    this.barChart.update();
   }
 
 }
