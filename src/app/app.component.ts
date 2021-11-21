@@ -1,10 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { CfDespesaModalComponent } from './cf-despesa-modal/cf-despesa-modal.component';
 import { CfImportarModalComponent } from './cf-importar-modal/cf-importar-modal.component';
+import { CfRateioModalComponent } from './cf-rateio-modal/cf-rateio-modal.component';
 import { CfStatusRateioComponent } from './cf-status-rateio/cf-status-rateio.component';
 import { CfTransactionTableComponent } from './cf-transaction-table/cf-transaction-table.component';
 import { GraficoCategoriaComponent } from './grafico-categoria/grafico-categoria.component';
 import { GraficoTransacaoAnoComponent } from './grafico-transacao-ano/grafico-transacao-ano.component';
+import { DespesaPessoa } from './services/rateio/despesaPessoa';
 
 @Component({
   selector: 'app-root',
@@ -15,10 +17,12 @@ export class AppComponent {
   title = 'controle-financeiro-ui';
   @ViewChild(CfDespesaModalComponent, {static: false}) despesaModal!: CfDespesaModalComponent;
   @ViewChild(CfImportarModalComponent, {static: false}) importModal!: CfImportarModalComponent;
+  @ViewChild(CfRateioModalComponent, {static: false})   rateioModal!: CfRateioModalComponent;
   @ViewChild(CfTransactionTableComponent, {static: false}) transactionTable!: CfTransactionTableComponent;
   @ViewChild(GraficoCategoriaComponent, {static: false}) graficoCategoria!: GraficoCategoriaComponent;
   @ViewChild(GraficoTransacaoAnoComponent, {static: false}) graficoDespesaAno!: GraficoTransacaoAnoComponent;
   @ViewChild(CfStatusRateioComponent, {static: false}) cardRateio!: CfStatusRateioComponent;
+  
 
 
   mes:number;
@@ -38,7 +42,12 @@ export class AppComponent {
       case "importarDespesa":
           this.importModal.openModalWithComponent();
         break;
+      
   }  
+}
+
+openModalRateio(evento:DespesaPessoa){ 
+    this.rateioModal.openModalWithComponent(evento);
 }
 
 atualizaDados(){

@@ -1,4 +1,4 @@
-import { DespesaPessoa } from "./DespesaPessoa";
+import { DespesaPessoa } from "./despesaPessoa";
 
 export interface ListaDespesaPessoa{
     itens:DespesaPessoa[];

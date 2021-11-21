@@ -4,4 +4,5 @@ export interface DespesaPessoa{
     valorTotalIndividual:number;
     valorTotalCompartilhado:number;
     valorTaxa:number;
+    valorSalario:number;
 }

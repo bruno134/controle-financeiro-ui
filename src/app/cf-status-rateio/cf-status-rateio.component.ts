@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { DespesaPessoa } from '../services/rateio/DespesaPessoa';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { DespesaPessoa } from '../services/rateio/despesaPessoa';
 import { RateioDespesaService } from '../services/rateio/rateio-despesa.service';
 
 @Component({
@@ -8,6 +8,7 @@ import { RateioDespesaService } from '../services/rateio/rateio-despesa.service'
   styleUrls: ['./cf-status-rateio.component.css']
 })
 export class CfStatusRateioComponent implements OnInit {
+  @Output() openRateioEvent = new EventEmitter()
 
   mes:number;
   ano:number;
@@ -27,15 +28,13 @@ export class CfStatusRateioComponent implements OnInit {
 
   ngOnInit(): void {
     this.buscarRateioPessoa(this.mes,this.ano);
-    // this.valorPercentual = this.calculoBarra(100,6000);
-    // this.barra = this.valorPercentual + "%";
-    // this.corDaBarra = this.corBarra(this.valorPercentual);
   }
 
   buscarRateioPessoa(mes:number,ano:number){
       this.rateioService.buscaDespesaPorPessoa(mes,ano).subscribe(
         listaDespesaPessoa => {
           this.listaDepesaPessoa = listaDespesaPessoa.itens
+          console.log(this.listaDepesaPessoa);
           this.descricaoValorCompartilhado = listaDespesaPessoa.descricaoDespesaCompartilhada
           this.valorCompartilhado = listaDespesaPessoa.valorTotalDespesaCompartilhada;
         },
@@ -45,11 +44,9 @@ export class CfStatusRateioComponent implements OnInit {
       );
   }
 
-
-  /*
-  100  - offset     100*vl  = x * offset  => x 100*vl/offset
-   x  - vl
-  */ 
+  openRateioModal(pessoa:DespesaPessoa){
+    this.openRateioEvent.emit(pessoa);
+  }
 
   calculoBarra(valorAtual:number,valorOffSet:number){
     return (valorAtual*100/valorOffSet);

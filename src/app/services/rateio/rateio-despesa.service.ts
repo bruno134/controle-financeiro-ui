@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RateioDespesa } from './despesaRateio';
 import { ListaDespesaPessoa } from './listaDespesaPessoa';
+import { RateioDespesaDTO } from './rateioDespesaDTO';
 
 
 @Injectable({
@@ -22,5 +23,9 @@ export class RateioDespesaService {
         ano: ano
       }
     })
+  }
+
+  alteraValorRateio(rateioDTO:RateioDespesaDTO){
+    return this.http.put('http://localhost:8080/rateio/alterar',rateioDTO);
   }
 }

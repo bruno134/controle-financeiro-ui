@@ -1,0 +1,44 @@
+<ng-template #rateioModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left"> Ajuste Rateio </h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            <!-- <div class="row">
+                <cf-alerta-modal [message]="messagesModal" [inputType]="alertType"></cf-alerta-modal>
+            </div> -->
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label class="form-label"> % Valor Rateio </label>
+                    <div class="input-group">
+                    <input type="text" class="form-control" [(ngModel)]="valorRateio"
+                    [inputMask]="ratioInputMask" placeholder="50.000">
+                    <span class="input-group-text">%</span>
+                </div>
+                </div>
+            </div>
+             <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label class="form-label"> Valor Salario </label>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="text" class="form-control" [(ngModel)]="valorSalario" [inputMask]="currencyInputMask" placeholder="$ 0.00"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="alterarRateio()">Salvar</button>
+        <button type="button" class="btn btn-danger" (click)="closeModal()">Close</button>
+    </div>
+</ng-template>
+<script>
+    $(document).ready(function(){
+  $(":input").inputmask();
+});
+
+</script>

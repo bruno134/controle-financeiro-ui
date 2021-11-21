@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="row">
-        <cf-status-rateio></cf-status-rateio>
+        <cf-status-rateio (openRateioEvent)="openModalRateio($event)"></cf-status-rateio>
     </div>
     <div class="row">
         <div class="col-lg-12">
@@ -52,3 +52,4 @@
 
 <cf-despesa-modal #despesaModal (saveEvent)="atualizaDados()"></cf-despesa-modal>
 <cf-importar-modal #importaDespesaModal (importEvent)="atualizaDados()"></cf-importar-modal>
+<cf-rateio-modal #rateioModal (saveRateioEvent)="atualizaDados()"></cf-rateio-modal>
