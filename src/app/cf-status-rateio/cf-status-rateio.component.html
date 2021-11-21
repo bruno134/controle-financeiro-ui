@@ -1,14 +1,16 @@
-<div class="row">
-    <div class="col-md-6" *ngFor="let despesaPessoa of listaDepesaPessoa">
+<div class="d-flex flex-row justify-content-between">
+    <div class="col-md-6 p-1" *ngFor="let despesaPessoa of listaDepesaPessoa">
         <div class="card p-3">
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex flex-row align-items-center">
                     <div class="icon"> <i class="bx bxl-mailchimp"></i> </div>
                     <div class="ms-2 c-details">
                         <h4 class="mb-0"> {{ despesaPessoa.nomeDono }} </h4>
                     </div>
                 </div>
-                <div class="badge"> <span>{{ despesaPessoa.valorTaxa}}</span> </div>
+            <h5>
+                <span class="badge bg-secondary"> {{ despesaPessoa.valorTaxa*100 | number : '1.0-5' }} %</span>
+            </h5>
             </div>
             <div >
                 <div class="dates">
@@ -24,7 +26,7 @@
                     </div>
                     <div>
                         <strong>COMPARTILHADO</strong>
-                        {{ valorCompartilhado | currency:'BRL':'symbol':'1.2-2'}}
+                        {{ despesaPessoa.valorTotalCompartilhado | currency:'BRL':'symbol':'1.2-2'}}
                     </div>
                 </div>
                 
