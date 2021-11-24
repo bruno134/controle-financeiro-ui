@@ -13,4 +13,8 @@ export class CategoriaService {
     return this.http.get<Categoria[]>('http://localhost:8080/categoria/consultar');
   }
 
+  salvarCategoria(categoria:Categoria){
+    return this.http.post('http://localhost:8080/categoria/inserir',categoria);
+  }
+
 }

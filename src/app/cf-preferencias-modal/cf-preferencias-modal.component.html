@@ -1,0 +1,52 @@
+<ng-template #preferenciaModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left"> {{title}}</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            <div class="row g-3">
+                  <div class="col-auto">
+                    <label for="descricao" class="form-label">Descrição</label>
+                    <input type="text" class="form-control" id="descricao" placeholder="Descrição" [(ngModel)]="nome">
+                  </div>
+                  <div class="col-auto" *ngIf="isCategoria">
+                    <label for="tipoCategoria" class="form-label">Tipo Categoria</label>
+                    <select class="form-select" aria-label=".form-select" [(ngModel)]="tipo">
+                        <option selected>Despesa</option>
+                        <option>Receita</option>
+                      </select>
+                  </div>
+                  <div class="d-flex align-items-end col-auto">
+                    <button type="button" class="btn btn-primary mb-3" (click)=salvar()>Incluir</button>
+                  </div>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-12">
+                    <ng-template [ngIf]="listaItens.length">
+                        <div class="container">
+                            <div class="row">
+                                <table class="table table-striped" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th *ngFor="let header of headers"> {{ header }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of listaItens; let i = index;">
+                                            <td>{{ i+1 }}</td>
+                                            <td> {{ item.nome}}</td>
+                                            <td *ngIf="isCategoria"> {{ item.tipoCategoria }} </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

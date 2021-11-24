@@ -11,20 +11,20 @@
                 <cf-alerta-modal [message]="messagesModal" [inputType]="alertType"></cf-alerta-modal>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 mb-3">
                     <label class="form-label"> Descrição </label>
                     <input type="text" class="form-control" [(ngModel)]="descricaoDespesa">
                 </div>
             </div>
              <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6 mb-3">
                     <label class="form-label"> Valor </label>
                     <div class="input-group">
                         <span class="input-group-text">$</span>
                         <input type="text" class="form-control" [(ngModel)]="valorDespesa" [inputMask]="currencyInputMask" placeholder="$ 0.00"/>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 mb-3">
                     <label class="form-label"> Data</label>
                     <div class="input-group">
                         <span class="input-group-text" id="basic-addon1">
@@ -41,21 +41,21 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4 mb-3">
                     <label class="form-label"> Categoria Despesa</label>
                     <select class="form-select" [(ngModel)]="categoriaDespesa">
                         <option selected> Selecione </option>
                         <option *ngFor="let itemCategoria of listaDeCategoria">{{ itemCategoria.nome }}</option>
                     </select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 mb-3">
                     <label class="form-label"> Origem Despesa </label>
                     <select class="form-select" [(ngModel)]="origemDespesa">
                         <option selected> Selecione </option>
                         <option *ngFor="let itemOrigem of listaDeOrigens" > {{ itemOrigem.nome }} </option>
                     </select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 mb-3">
                     <label class="form-label"> Rateio </label>
                     <select class="form-select" [(ngModel)]="tipoRateioDespesa">
                         <option *ngFor="let itemRateio of listaDeRateios"> {{ itemRateio.nome }} </option>

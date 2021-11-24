@@ -35,7 +35,7 @@ export class CfImportarModalComponent implements OnInit {
   listaOrigem:Origem[] = [];
   headers:string[] =  ["#", "Data", "Descrição", "Valor", "Categoria", "Rateio"];
   display =false;
-  origemImportacao = "";
+  origemImportacao = "CARTAO CREDITO";
   
   constructor(private modalService: BsModalService,
               private fb: FormBuilder,

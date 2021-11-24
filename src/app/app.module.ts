@@ -23,6 +23,7 @@ import { GraficoCategoriaComponent } from './grafico-categoria/grafico-categoria
 import { GraficoTransacaoAnoComponent } from './grafico-transacao-ano/grafico-transacao-ano.component';
 import { CfStatusRateioComponent } from './cf-status-rateio/cf-status-rateio.component';
 import { CfRateioModalComponent } from './cf-rateio-modal/cf-rateio-modal.component';
+import { CfPreferenciasModalComponent } from './cf-preferencias-modal/cf-preferencias-modal.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { CfRateioModalComponent } from './cf-rateio-modal/cf-rateio-modal.compon
     GraficoCategoriaComponent,
     GraficoTransacaoAnoComponent,
     CfStatusRateioComponent,
-    CfRateioModalComponent
+    CfRateioModalComponent,
+    CfPreferenciasModalComponent
   ],
   imports: [
     BrowserModule,

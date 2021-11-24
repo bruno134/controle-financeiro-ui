@@ -8,13 +8,12 @@
     <div class="modal-body">
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4 mb-3">
                     <div class="row">
                         <cf-alerta-modal [message]="messagesModal" [inputType]="alertType"></cf-alerta-modal>
                     </div>
                     <div class="form-floating">
                         <select id="origemSelect" [(ngModel)]="origemImportacao" class="form-select" aria-label="Floating label select example">
-                            <option selected> Selecione origem </option>
                             <option *ngFor="let origem of listaOrigem;">
                                 {{ origem.nome }}
                             </option>
@@ -26,7 +25,7 @@
             <!-- Quebra linha -->
              <hr>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6 mb-3">
                     <div class="input-group">
                         <input type="file" 
                             class="form-control" 

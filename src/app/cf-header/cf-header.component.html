@@ -22,6 +22,17 @@
         <div class="btn-group" dropdown>
           <button type="button" class="btn btn-warning dropdown-toggle" dropdownToggle
             aria-controls="dropdown-basic">
+            Preferências
+            <span class="caret"></span>
+          </button>
+          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+            <li role="menuitem"><a class="dropdown-item" href="#" (click)="chamaModal('categoriaModal')">Categorias</a></li>
+            <li role="menuitem"><a class="dropdown-item" href="#" (click)="chamaModal('formaPagtoModal')">Forma Pagto</a></li>
+          </ul>
+        </div>
+        <div class="btn-group" dropdown>
+          <button type="button" class="btn btn-warning dropdown-toggle" dropdownToggle
+            aria-controls="dropdown-basic">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
               viewBox="0 0 16 16">
               <path fill-rule="evenodd"
