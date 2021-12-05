@@ -34,7 +34,7 @@ export class CfStatusRateioComponent implements OnInit {
       this.rateioService.buscaDespesaPorPessoa(mes,ano).subscribe(
         listaDespesaPessoa => {
           this.listaDepesaPessoa = listaDespesaPessoa.itens
-          console.log(this.listaDepesaPessoa);
+          
           this.descricaoValorCompartilhado = listaDespesaPessoa.descricaoDespesaCompartilhada
           this.valorCompartilhado = listaDespesaPessoa.valorTotalDespesaCompartilhada;
         },
