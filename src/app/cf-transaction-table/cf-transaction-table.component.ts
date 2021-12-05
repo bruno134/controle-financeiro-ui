@@ -21,21 +21,26 @@ paginaAtual:number = 0;
 totalDePaginas:number = 0;
 smallnumPages:number = 0;
 currentPage:number = 0;
+dataInicio:Date;
+dataFim:Date;
 
 
-  constructor(private despesaService:DespesasService) { }
-
-  ngOnInit(): void {
-    this.buscaListaDespesa(1);
+  constructor(private despesaService:DespesasService) { 
+    let dataAtual = new Date();
+    this.dataInicio = dataAtual;
+    this.dataFim = new Date(dataAtual.getFullYear(),(dataAtual.getMonth()+1),dataAtual.getDay());
   }
 
-  buscaListaDespesa(pagina: number) {
+  ngOnInit(): void {
     
-    //TODO deixar parametrizavel as buscas
+  }
+
+  buscaListaDespesa(dataInicial:Date,dataFinal:Date,pagina: number) {
     
-    let dataAtual = new Date();
-    let mes = dataAtual.getMonth()+1;
-    let ano = dataAtual.getFullYear();
+    let mes = dataFinal.getMonth()+1;
+    let ano = dataFinal.getFullYear();
+
+    //alert(mes + " - " + ano)
 
     if (pagina || pagina>0) {
       this.despesaService.consultaListaDespesa(mes, ano, pagina).subscribe(service => {
@@ -44,8 +49,18 @@ currentPage:number = 0;
         this.paginaAnterior = service.paginaAnterior != null ? service.paginaAnterior : 0;
         this.paginaAtual = this.paginaAnterior + 1;
         this.totalDePaginas = service.totalPaginas;
+        this.dataInicio = dataInicial
+        this.dataFim = dataFinal
       });
     }
+  }
+
+  buscaProximaPagina(pagina:number){
+    this.buscaListaDespesa(this.dataInicio, this.dataFim, pagina)
+  }
+
+  buscaPaginaAnterior(pagina:number){
+    this.buscaListaDespesa(this.dataInicio, this.dataFim, pagina)
   }
 
   apagarDespesa(id:number){

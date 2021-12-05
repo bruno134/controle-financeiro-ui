@@ -65,6 +65,7 @@ export class CfImportarModalComponent implements OnInit {
   
   openModalWithComponent() {
     this.bsModalRef = this.modalService.show(this.meuModal,{class: 'modal-xl'});
+    this.ngOnInit();
   }
 
   

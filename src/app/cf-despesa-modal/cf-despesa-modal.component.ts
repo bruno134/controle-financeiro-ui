@@ -67,6 +67,7 @@ export class CfDespesaModalComponent implements OnInit {
 
   openModalWithComponent() {
     this.bsModalRef = this.modalService.show(this.meuModal,{class: 'modal-lg'});
+    this.ngOnInit();
   }
 
   carregaComboCategoria(){

@@ -28,14 +28,10 @@ export class AppComponent {
   
 
 
-  mes:number;
-  ano:number;
+  dataInicio:Date = new Date()
+  dataFim:Date = new Date(this.dataInicio.getFullYear(),(this.dataInicio.getMonth()+1),this.dataInicio.getDay())
 
-  constructor(){
-    let dataAtual = new Date();
-    this.mes = dataAtual.getMonth()+1;
-    this.ano = dataAtual.getFullYear();
-  }
+  constructor(){}
 
   abrirModal(evento:string){
     switch (evento) {
@@ -60,10 +56,16 @@ openModalRateio(evento:DespesaPessoa){
 }
 
 atualizaDados(){
-  this.transactionTable.buscaListaDespesa(1);
-  this.graficoCategoria.buscaDepesasConsolidadoCategoria(this.mes,this.ano);
-  this.graficoDespesaAno.buscaDespesaPorMes(this.ano);
-  this.cardRateio.buscarRateioPessoa(this.mes,this.ano);
+  this.transactionTable.buscaListaDespesa(this.dataInicio,this.dataFim, 1);
+  this.graficoCategoria.buscaDepesasConsolidadoCategoria((this.dataFim.getMonth()+1),this.dataFim.getFullYear());
+  this.graficoDespesaAno.buscaDespesaPorMes(this.dataFim.getFullYear());
+  this.cardRateio.buscarRateioPessoa((this.dataFim.getMonth()+1),this.dataFim.getFullYear());
+}
+
+getUpdateDates(datas:Date[]){
+  this.dataInicio = datas[0]
+  this.dataFim = datas[1]
+  this.atualizaDados();
 }
 
 
