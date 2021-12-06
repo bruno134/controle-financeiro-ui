@@ -1,0 +1,18 @@
+
+docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
+
+docker run --name cf-mysql -e MYSQL_ROOT_PASSWORD=flix-bout-rean -d mysql/mysql-server:tag
+
+
+docker pull mysql/mysql-server:8.0.27-1.2.6-server
+
+docker run --rm -d -e MYSQL_ROOT_PASSWORD=pass -p 3325:3306 -d mysql/mysql-server:8.0.27-1.2.6-server
+
+
+docker run --name cf-mysql -e MYSQL_ROOT_HOST=% -p 3306:3306 -d mysql/mysql-server:8.0.27-1.2.6-server
+
+
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'172.17.0.1' WITH GRANT OPTION;
+CREATE USER 'cf_user'@'172.17.0.1' IDENTIFIED BY 'smux-rhog-jown';
+
+

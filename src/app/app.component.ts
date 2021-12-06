@@ -34,6 +34,7 @@ export class AppComponent {
   constructor(){}
 
   abrirModal(evento:string){
+    // alert(evento);
     switch (evento) {
       case "inserirDespesa":
           this.despesaModal.openModalWithComponent();

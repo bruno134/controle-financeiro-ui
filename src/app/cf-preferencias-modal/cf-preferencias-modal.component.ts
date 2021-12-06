@@ -62,7 +62,7 @@ export class CfPreferenciasModalComponent implements OnInit {
   }
 
   buscaPreferencias(identificador: string) {
-
+    this.listaItens = []
     switch (identificador) {
       case "categoria":
         this.categoriaService.buscaListaCategoria().subscribe(
@@ -82,7 +82,7 @@ export class CfPreferenciasModalComponent implements OnInit {
         );
         break;
       default:
-        alert('deu ruim');
+        console.log('deu ruim')
     }
 
   }
