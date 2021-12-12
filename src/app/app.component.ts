@@ -52,8 +52,13 @@ export class AppComponent {
   }  
 }
 
-openModalRateio(evento:DespesaPessoa){ 
-    this.rateioModal.openModalWithComponent(evento);
+openModalRateio(evento:any){ 
+
+    let pessoa = evento.pessoa;
+    let mes = evento.mes
+    let ano = evento.ano
+
+    this.rateioModal.openModalWithComponent(pessoa,mes,ano);
 }
 
 atualizaDados(){

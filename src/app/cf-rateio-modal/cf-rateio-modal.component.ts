@@ -20,6 +20,8 @@ bsModalRef?: BsModalRef;
 valorRateio:number = 0;
 valorSalario:number = 0;
 despesaPessoa?:DespesaPessoa;
+mes:number;
+ano:number;
 
 /**  Declaraçao das mascaras */
 
@@ -36,15 +38,21 @@ ratioInputMask = createMask({
 });
 
   constructor(private modalService: BsModalService,
-              private rateioService:RateioDespesaService) { }
+              private rateioService:RateioDespesaService) { 
+                let today = new Date();
+                this.mes = today.getMonth()+1;
+                this.ano = today.getFullYear();
+              }
 
   ngOnInit(): void {
   }
 
-  openModalWithComponent(despesaPessoa:DespesaPessoa){
+  openModalWithComponent(despesaPessoa:DespesaPessoa, mes:number,ano:number){
     this.despesaPessoa = despesaPessoa;
     this.valorRateio = despesaPessoa.valorTaxa*100
     this.valorSalario = despesaPessoa.valorSalario
+    this.mes = mes
+    this.ano = ano
     this.bsModalRef = this.modalService.show(this.rateioModal,{class: 'modal-sm'});
   }
 
@@ -54,11 +62,11 @@ ratioInputMask = createMask({
 
   alterarRateio(){
 
-    let dataAtual = new Date();
+    
 
     let rateio = <RateioDespesaDTO> ({
-      mesCompetenciaRateio: dataAtual.getMonth()+1,
-      anoCompetenciaRateio: dataAtual.getFullYear(),
+      mesCompetenciaRateio: this.mes,
+      anoCompetenciaRateio: this.ano,
       valorRateio: this.valorRateio/100,
       valorSalario: this.valorSalario,
       nomePessoaRateio: this.despesaPessoa?.nomeDono

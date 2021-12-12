@@ -31,6 +31,10 @@ export class CfStatusRateioComponent implements OnInit {
   }
 
   buscarRateioPessoa(mes:number,ano:number){
+
+     this.mes = mes
+     this.ano = ano
+
       this.rateioService.buscaDespesaPorPessoa(mes,ano).subscribe(
         listaDespesaPessoa => {
           this.listaDepesaPessoa = listaDespesaPessoa.itens
@@ -44,8 +48,13 @@ export class CfStatusRateioComponent implements OnInit {
       );
   }
 
-  openRateioModal(pessoa:DespesaPessoa){
-    this.openRateioEvent.emit(pessoa);
+  openRateioModal(pessoa:DespesaPessoa,mes:number,ano:number){
+   
+    let evento = { pessoa:pessoa,
+                   mes:mes,
+                   ano:ano}
+
+    this.openRateioEvent.emit(evento);
   }
 
   calculoBarra(valorAtual:number,valorOffSet:number){
