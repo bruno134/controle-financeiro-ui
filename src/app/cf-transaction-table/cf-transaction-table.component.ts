@@ -40,9 +40,9 @@ dataFim:Date;
     let mes = dataFinal.getMonth()+1;
     let ano = dataFinal.getFullYear();
 
-    //alert(mes + " - " + ano)
-
-    if (pagina || pagina>0) {
+    if (pagina) {
+      this.listaDespesa = []
+      if (pagina==0) pagina = 1
       this.despesaService.consultaListaDespesa(mes, ano, pagina).subscribe(service => {
         this.listaDespesa = service.despesas;
         this.proximaPagina = service.proximaPagina;

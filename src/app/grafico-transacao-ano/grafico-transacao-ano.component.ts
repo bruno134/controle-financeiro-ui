@@ -25,15 +25,16 @@ export class GraficoTransacaoAnoComponent implements OnInit {
 
   ngOnInit(): void {
     this.montaChart();
-    this.buscaDespesaPorMes(this.ano);
+    //this.buscaDespesaPorMes(this.ano);
   }
+
 
 
   buscaDespesaPorMes(ano:number){
     this.controleDespesaService.buscaDespesaConsolidadaPorMes(ano).subscribe(
       despesasMes => {
         this.separaDadosGrafico(despesasMes)
-        //this.montaChart(this.chartLabels,this.chartValues);
+        this.ano = ano
         this.insereDadosGrafico(this.chartLabels,this.chartValues)
       },
       erro => {
@@ -116,6 +117,7 @@ export class GraficoTransacaoAnoComponent implements OnInit {
   insereDadosGrafico(chartLabels:string[],chartValues:string[] ){
     this.barChart.data.labels = chartLabels;
     this.barChart.data.datasets[0].data = chartValues;
+    this.barChart.data.datasets[0].label = this.ano;
     this.barChart.update();
   }
 

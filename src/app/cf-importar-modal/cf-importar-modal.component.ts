@@ -10,6 +10,7 @@ import { OrigemService } from '../services/origem/origem.service';
 import { RateioDespesaService } from '../services/rateio/rateio-despesa.service';
 import { RateioDespesa } from '../services/rateio/despesaRateio';
 import Swal from 'sweetalert2';
+import { DateUtilsService } from '../services/dates/dateUtils.service';
 
 
 @Component({
@@ -33,6 +34,10 @@ export class CfImportarModalComponent implements OnInit {
   listaCategorias:Categoria[] = [];
   listaRateio:RateioDespesa[] = [];
   listaOrigem:Origem[] = [];
+  listaMeses:any[] = [];
+  listaAnos:number[] = [];
+  anoDespesa:number;
+  mesDespesa:number;
   headers:string[] =  ["#", "Data", "Descrição", "Valor", "Categoria", "Rateio"];
   display =false;
   origemImportacao = "CARTAO CREDITO";
@@ -42,7 +47,8 @@ export class CfImportarModalComponent implements OnInit {
               private despesaService:DespesasService,
               private categoriaService: CategoriaService,
               private tipoRateioService:RateioDespesaService,
-              private origemService:OrigemService) { 
+              private origemService:OrigemService,
+              private dateService: DateUtilsService) { 
               
               this.fileForm = this.fb.group({
                 file: [null],
@@ -51,6 +57,10 @@ export class CfImportarModalComponent implements OnInit {
               this.importForm = this.fb.group({
                 despesaArray:this.fb.array([])
               });
+
+              let today = new Date();
+              this.anoDespesa = today.getFullYear();
+              this.mesDespesa = today.getMonth()+1;
   }
 
   get despesaArray() {
@@ -61,6 +71,8 @@ export class CfImportarModalComponent implements OnInit {
     this.buscarListaCategoria();
     this.buscarListaRateio();
     this.buscaListaOrigem();
+    this.listaAnos = this.dateService.getListofYears(new Date().getFullYear()-3,30);
+    this.listaMeses = this.dateService.getListofMonths();
   }
   
   openModalWithComponent() {
@@ -90,8 +102,8 @@ export class CfImportarModalComponent implements OnInit {
   importFile() {
     var formData: any = new FormData();
     let dataAtual = new Date();
-    let mes:number = dataAtual.getMonth()+1;
-    let ano: number = dataAtual.getFullYear();
+    let mes:number = this.mesDespesa
+    let ano: number = this.anoDespesa
 
      formData.append("file", this.fileForm.get('file')?.value); 
      formData.append("instrumento", this.origemImportacao);
@@ -111,7 +123,7 @@ export class CfImportarModalComponent implements OnInit {
     if(this.despesaArray.controls.length>0){
 
       let listaDespesas:Despesa[] = this.retornaDespesaParaImportar(this.despesaArray.controls);
-      console.log(listaDespesas);
+      // console.log(listaDespesas);
       this.despesaService.incluirLote(listaDespesas).subscribe(()=>{
         this.importEvent.emit(true);
         this.closeModal()
@@ -121,7 +133,7 @@ export class CfImportarModalComponent implements OnInit {
 
   criaDespesaRow(despesa:Despesa){
     return this.fb.group({
-      selecionado: [false],
+      selecionado: [true],
       data: [despesa.data],
       descricao: [despesa.descricao],
       valor: [despesa.valor],
@@ -219,5 +231,4 @@ export class CfImportarModalComponent implements OnInit {
       footer: message
     })
   }
-
 }

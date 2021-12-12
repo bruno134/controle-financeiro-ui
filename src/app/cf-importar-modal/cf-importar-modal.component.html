@@ -18,7 +18,27 @@
                                 {{ origem.nome }}
                             </option>
                         </select>
-                        <label class="form-label" for="origemSelect">Origem Despesas</label>
+                        <label class="form-label" for="origemSelect">Forma Pagamento</label>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="form-floating">
+                        <select id="origemSelect" [(ngModel)]="mesDespesa" class="form-select" aria-label="Floating label select example">
+                            <option *ngFor="let mes of listaMeses;" value="{{ mes.intMes }}">
+                                {{ mes.nomeMes }}
+                            </option>
+                        </select>
+                        <label class="form-label" for="origemSelect">Mês Despesas</label>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="form-floating">
+                        <select id="origemSelect" [(ngModel)]="anoDespesa" class="form-select" aria-label="Floating label select example">
+                            <option *ngFor="let ano of listaAnos;">
+                                {{ ano }}
+                            </option>
+                        </select>
+                        <label class="form-label" for="origemSelect">Ano Despesa</label>
                     </div>
                 </div>
             </div>

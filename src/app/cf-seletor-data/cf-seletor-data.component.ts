@@ -21,6 +21,7 @@ export class CfSeletorDataComponent implements OnInit {
     let today = new Date();
     this.datesRange[0] = new Date(today.getFullYear(), (today.getMonth()-1), 28);
     this.datesRange[1]  = today;
+    this.disparaEventoConsulta()
   }
 
   nextMonth(){

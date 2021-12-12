@@ -26,6 +26,31 @@ addMonths(date:Date,value:number) {
     return summedDate;
 };
 
+getListofYears(baseYear:number, quantidadeAnos:number){
+  let listYears:number[] = [];
+  let offsetYear = baseYear;
+  
+  if(!offsetYear) offsetYear = (new Date().getFullYear()-2);
+
+  for (let index = baseYear; index <= (baseYear+quantidadeAnos); index++) {
+    listYears.push(index);
+  }
+  return listYears;
+}
+
+getListofMonths(){
+  let today = new Date();
+  let months:any[] = []
+
+  for (let index = 0; index < 12; index++) {
+    let newDate = new Date(today.getFullYear(),index,1);
+    months.push({
+      nomeMes:newDate.toLocaleString('pt-BR', { month: 'long' }),
+      intMes:(index+1)
+    });
+  }
+  return months;
+}
 
 
 }
