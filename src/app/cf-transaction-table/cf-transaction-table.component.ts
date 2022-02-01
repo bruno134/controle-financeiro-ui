@@ -19,6 +19,7 @@ paginaAnterior:number = 0;
 proximaPagina:number = 0;
 paginaAtual:number = 0;
 totalDePaginas:number = 0;
+tamanhoPagina:number = 0;
 smallnumPages:number = 0;
 currentPage:number = 0;
 dataInicio:Date;
@@ -35,7 +36,7 @@ dataFim:Date;
     
   }
 
-  buscaListaDespesa(dataInicial:Date,dataFinal:Date,pagina: number) {
+  buscaListaDespesa(dataInicial:Date,dataFinal:Date,pagina: number, tamanhoPagina:number) {
     
     let mes = dataFinal.getMonth()+1;
     let ano = dataFinal.getFullYear();
@@ -43,7 +44,7 @@ dataFim:Date;
     if (pagina) {
       this.listaDespesa = []
       if (pagina==0) pagina = 1
-      this.despesaService.consultaListaDespesa(mes, ano, pagina).subscribe(service => {
+      this.despesaService.consultaListaDespesa(mes, ano, pagina,tamanhoPagina).subscribe(service => {
         this.listaDespesa = service.despesas;
         this.proximaPagina = service.proximaPagina;
         this.paginaAnterior = service.paginaAnterior != null ? service.paginaAnterior : 0;
@@ -56,11 +57,11 @@ dataFim:Date;
   }
 
   buscaProximaPagina(pagina:number){
-    this.buscaListaDespesa(this.dataInicio, this.dataFim, pagina)
+    this.buscaListaDespesa(this.dataInicio, this.dataFim, pagina, this.tamanhoPagina)
   }
 
   buscaPaginaAnterior(pagina:number){
-    this.buscaListaDespesa(this.dataInicio, this.dataFim, pagina)
+    this.buscaListaDespesa(this.dataInicio, this.dataFim, pagina, this.tamanhoPagina)
   }
 
   apagarDespesa(id:number){

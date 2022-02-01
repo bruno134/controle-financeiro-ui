@@ -12,12 +12,13 @@ export class DespesasService implements OnInit{
 
   ngOnInit(){}
 
-  consultaListaDespesa(mes:number, ano:number, pagina:number){
+  consultaListaDespesa(mes:number, ano:number, pagina:number,tamanhoPagina:number){
     return this.http.get<ConsultaDespesa> ('http://localhost:8080/despesa/consultar', {
       params: {
         mes: mes,
         ano: ano,
-        pagina: pagina
+        pagina: pagina,
+        tamanhoPagina: tamanhoPagina
       }
     })
   }

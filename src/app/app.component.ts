@@ -62,7 +62,7 @@ openModalRateio(evento:any){
 }
 
 atualizaDados(){
-  this.transactionTable.buscaListaDespesa(this.dataInicio,this.dataFim, 1);
+  this.transactionTable.buscaListaDespesa(this.dataInicio,this.dataFim, 1,10);
   this.graficoCategoria.buscaDepesasConsolidadoCategoria((this.dataFim.getMonth()+1),this.dataFim.getFullYear());
   this.graficoDespesaAno.buscaDespesaPorMes(this.dataFim.getFullYear());
   this.cardRateio.buscarRateioPessoa((this.dataFim.getMonth()+1),this.dataFim.getFullYear());
