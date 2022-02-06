@@ -14,7 +14,7 @@ export class ControleDespesaService {
   constructor(private http: HttpClient) { }
 
   buscaDespesaConsolidadoPorCategoria(mes:number,ano:number) {
-    return this.http.get<ListaConsolidadoPorCategoria>('/dash/consultar', {
+    return this.http.get<ListaConsolidadoPorCategoria>( API + '/dash/consultar', {
       params: {
         mes: mes,
         ano: ano
@@ -22,7 +22,7 @@ export class ControleDespesaService {
     }
 
   buscaDespesaConsolidadaPorMes(ano:number){
-    return this.http.get<DespesaPorMes[]>('/dash/totalconsolidadodespesa',{
+    return this.http.get<DespesaPorMes[]>(API + '/dash/totalconsolidadodespesa',{
       params: {
         ano:ano
       }

@@ -28,6 +28,6 @@ export class RateioDespesaService {
   }
 
   alteraValorRateio(rateioDTO:RateioDespesaDTO){
-    return this.http.put('/rateio/alterar',rateioDTO);
+    return this.http.put(API + '/rateio/alterar',rateioDTO);
   }
 }
