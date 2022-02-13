@@ -5,6 +5,45 @@
                 <tr>
                     <th *ngFor="let header of headers"> {{ header }}</th>
                 </tr>
+                <tr>
+                    <td colspan=2>
+                        <select class="form-select" aria-label=".form-select" #tp (change)="mudaTamanhoPagina(tp.value)">
+                            <option>10</option>
+                            <option>20</option>
+                            <option>30</option>
+                            <option>40</option>
+                            <option>50</option>
+                            <option selected>100</option>
+                        </select>
+                    </td>
+                    <td colspan="2"><input type="text" class="form-control" id="descricao"
+                        placeholder="Descrição" (keyup)="filtrarPorTexto(txt.value)" #txt [formControl]="descricaoControl"> </td>
+                    
+                    <td>
+                        <select class="form-select" aria-label=".form-select" #cat (change)="filtraPor('categoria',cat.value)"> 
+                            <option> TODOS </option>
+                            <option *ngFor="let categoria of listaCategorias">
+                                {{ categoria.nome }}
+                            </option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="form-select" aria-label=".form-select" #ori (change)="filtraPor('instrumento',ori.value)">
+                            <option > TODOS </option>
+                            <option *ngFor="let origem of listaOrigem">
+                                {{ origem.nome }}
+                            </option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="form-select" aria-label=".form-select" #rt (change)="filtraPor('tipoRateio',rt.value)">
+                            <option > TODOS </option>
+                            <option *ngFor="let rateio of listaRateio">
+                                {{ rateio.nome }}
+                            </option>
+                          </select></td>
+                    <td>
+                </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let despesa of listaDespesa">
@@ -28,6 +67,12 @@
                     </td>
                 </tr>
             </tbody>
+            <tfoot>
+                    <tr>
+                        <td colspan="3">&nbsp;</td>
+                        <td colspan="4">R$: {{ totalDespesaFiltro | currency:'BRL':'symbol':'1.2-2'}} </td>
+                    </tr>
+            </tfoot>
         </table>
     </div>
     <div class="row">
