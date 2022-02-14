@@ -41,6 +41,8 @@ export class CfImportarModalComponent implements OnInit {
   headers:string[] =  ["#", "Data", "Descrição", "Valor", "Categoria", "Rateio"];
   display =false;
   origemImportacao = "CARTAO CREDITO";
+  totalValorDespesaImportada:number = 0;
+  totalItensImportados: number = 0;
   
   constructor(private modalService: BsModalService,
               private fb: FormBuilder,
@@ -101,7 +103,6 @@ export class CfImportarModalComponent implements OnInit {
 
   importFile() {
     var formData: any = new FormData();
-    let dataAtual = new Date();
     let mes:number = this.mesDespesa
     let ano: number = this.anoDespesa
 
@@ -112,8 +113,10 @@ export class CfImportarModalComponent implements OnInit {
 
       this.despesaService.importarDespesa(formData).subscribe(
         data => {
-           this.listaDespesaImportar = data
-          this.toFormList(this.listaDespesaImportar);
+           this.listaDespesaImportar = data.despesas
+           this.totalValorDespesaImportada = data.totalSomaDosItens
+           this.totalItensImportados = data.totalQuantidaDeItens
+           this.toFormList(this.listaDespesaImportar);
         },
          (error) => console.log(error)
     )
@@ -123,7 +126,6 @@ export class CfImportarModalComponent implements OnInit {
     if(this.despesaArray.controls.length>0){
 
       let listaDespesas:Despesa[] = this.retornaDespesaParaImportar(this.despesaArray.controls);
-      // console.log(listaDespesas);
       this.despesaService.incluirLote(listaDespesas).subscribe(()=>{
         this.importEvent.emit(true);
         this.closeModal()
@@ -230,5 +232,19 @@ export class CfImportarModalComponent implements OnInit {
       text: 'Algo deu ruim!',
       footer: message
     })
+  }
+
+  atualizaValores(index:number){
+
+    const selecionado = this.despesaArray.at(index).value.selecionado;
+    const valorItem:number = (this.despesaArray.at(index).value.valor) as number;
+
+    if(selecionado){
+      this.totalItensImportados--
+      this.totalValorDespesaImportada = +this.totalValorDespesaImportada - +valorItem
+    }else{
+      this.totalItensImportados++
+      this.totalValorDespesaImportada= +this.totalValorDespesaImportada + +valorItem
+    }
   }
 }

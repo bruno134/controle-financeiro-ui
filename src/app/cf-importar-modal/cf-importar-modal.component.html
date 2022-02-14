@@ -56,7 +56,19 @@
                         <button class="btn btn-warning" type="button" id="inputGroupFileAddon04" (click)="importFile()">Upload</button>
                     </div>
                 </div>
-                
+            </div>
+            <div class="row">
+                <div class="col-md-10 mb-3" *ngIf="listaDespesaImportar.length">
+                   <strong>Total itens :</strong> {{totalItensImportados}} itens <br>
+                   <strong>Valor total :</strong>  R$ {{ totalValorDespesaImportada | currency:'BRL':'symbol':'1.2-2'}}
+                </div>
+                <div class="col-md-1 mb-3">
+                    <button type="button" class="btn btn-success" *ngIf="listaDespesaImportar.length"
+                    (click)="openConfirmAlert()">Salvar</button>
+                </div>
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-danger" (click)="closeModal()" *ngIf="listaDespesaImportar.length"> Close</button>
+                </div>
             </div>
         </div>
         <ng-template [ngIf]="listaDespesaImportar.length" [formGroup]="importForm">
@@ -72,7 +84,7 @@
                             <ng-container *ngFor="let despesa of despesaArray.controls; let i = index">
                                 <tr [formGroupName]="i">
                                     <th scope="row">
-                                        <input type="checkbox" formControlName="selecionado">
+                                        <input type="checkbox" formControlName="selecionado" (click)="atualizaValores(i)">
                                     </th>
                                     <td>{{ despesa.get('data')?.value }}</td>
                                     <td>{{ despesa.get('descricao')?.value }}</td>

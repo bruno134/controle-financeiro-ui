@@ -45,7 +45,7 @@ export class DespesasService implements OnInit{
   }
 
   importarDespesa(formData:FormData) {
-    return this.http.post< Despesa[]>(API + '/despesa/import', formData);
+    return this.http.post<ConsultaDespesa>(API + '/despesa/import', formData);
   }
 
   incluirLote(lista: Despesa[]) {
