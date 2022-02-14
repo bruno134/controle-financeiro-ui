@@ -71,6 +71,9 @@ listaDespesaOriginal:Despesa[] = [];
       this.listaDespesa = novaLista
       this.totalDespesaFiltro = this.somaDespesas(this.listaDespesa)
     }
+    else{
+      this.totalDespesaFiltro = this.somaDespesas(this.listaDespesa)
+    }
   }
 
   filtraPor(chave:string,valor:string){
