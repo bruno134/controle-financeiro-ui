@@ -49,7 +49,7 @@
                 <tr *ngFor="let despesa of listaDespesa">
                     <th scope="row">{{ despesa.id }}</th>
                     <td>{{ despesa.data }}</td>
-                    <td>{{ despesa.descricao }}</td>
+                    <td><a href="#" (click)="alterarDespesa(despesa.id)"> {{ despesa.descricao }} </a></td>
                     <td>{{ despesa.valor | currency:'BRL':'symbol':'1.2-2'}}</td>
                     <td>{{ despesa.categoria }}</td>
                     <td>{{ despesa.instrumento }}</td>

@@ -20,6 +20,7 @@ export class CfTransactionTableComponent implements OnInit {
 @Input() listaDespesa:Despesa[] = [];
 @Input() headers:string[] =  ["#", "Data", "Descrição", "Valor", "Categoria", "Origem Despesa", "Rateio"];
 @Output() deleteEvent = new EventEmitter();
+@Output() myEvent = new EventEmitter();
 
 /* váriaveis */
 paginaAnterior:number = 0;
@@ -139,6 +140,11 @@ listaDespesaOriginal:Despesa[] = [];
     )
   }
 
+  alterarDespesa(despesaId:number){
+    console.log("eita");
+    this.myEvent.emit(despesaId);
+  }
+
   somaDespesas(despesas:Despesa[]){
     let totalDespesa = 0;
     var valorDespesa = 0;
@@ -192,4 +198,6 @@ listaDespesaOriginal:Despesa[] = [];
             erro => console.log(erro)
           )
   }
+
+
 }

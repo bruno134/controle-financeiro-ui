@@ -15,6 +15,10 @@ export class DespesasService implements OnInit{
 
   ngOnInit(){}
 
+  consultaDespesaPorId(despesaId:number){
+    return this.http.get<Despesa>(API + '/despesa/consultar/' + despesaId);
+  }
+
   consultaListaDespesa(mes:number, ano:number, pagina:number,tamanhoPagina:number, filter?:Map<string,string>){
 
 
@@ -50,6 +54,10 @@ export class DespesasService implements OnInit{
 
   incluirLote(lista: Despesa[]) {
     return this.http.post(API + '/despesa/inserir/lista', lista)
+  }
+
+  alterarDespesa(item: number, despesa:Despesa){
+    return this.http.put<Despesa>(API+'/despesa/alterar/' + item, despesa);
   }
 
 

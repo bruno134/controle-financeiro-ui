@@ -36,7 +36,7 @@ export class AppComponent {
     // alert(evento);
     switch (evento) {
       case "inserirDespesa":
-        this.despesaModal.openModalWithComponent();
+        this.despesaModal.openModalWithComponent("Inserir Despesa");
         break;
       case "importarDespesa":
         this.importModal.openModalWithComponent();
@@ -49,6 +49,10 @@ export class AppComponent {
         break;
 
     }
+  }
+
+  abrirModalDespesa(despesaID: number) {
+    this.despesaModal.openModalWithComponentToUpdate("Alterar Despesa", despesaID);
   }
 
   openModalRateio(evento: any) {
