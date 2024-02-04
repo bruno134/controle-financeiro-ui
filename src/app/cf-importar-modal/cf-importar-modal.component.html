@@ -88,7 +88,7 @@
                                     </th>
                                     <td>{{ despesa.get('data')?.value }}</td>
                                     <td>{{ despesa.get('descricao')?.value }}</td>
-                                    <td>{{ despesa.get('valor')?.value | currency:'BRL':'symbol':'1.2-2'}}</td>
+                                    <td>{{ despesa.get('valor')?.value | currency:'USD':'symbol':'1.2-2'}}</td>
                                     <td>
                                         <select class="form-select" formControlName="categoria">
                                             <option select>Não categorizado</option>

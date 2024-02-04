@@ -40,7 +40,7 @@ export class CfImportarModalComponent implements OnInit {
   mesDespesa:number;
   headers:string[] =  ["#", "Data", "Descrição", "Valor", "Categoria", "Rateio"];
   display =false;
-  origemImportacao = "CARTAO CREDITO";
+  origemImportacao = "";
   totalValorDespesaImportada:number = 0;
   totalItensImportados: number = 0;
   
@@ -72,9 +72,14 @@ export class CfImportarModalComponent implements OnInit {
   ngOnInit(): void {
     this.buscarListaCategoria();
     this.buscarListaRateio();
-    this.buscaListaOrigem();
+    this.buscaListaOrigem();    
     this.listaAnos = this.dateService.getListofYears(new Date().getFullYear()-3,30);
     this.listaMeses = this.dateService.getListofMonths();
+
+    if(this.listaOrigem.length>0){      
+      this.origemImportacao = this.listaOrigem[0].nome;
+    }
+
   }
   
   openModalWithComponent() {
